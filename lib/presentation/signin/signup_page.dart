@@ -7,7 +7,9 @@ import 'package:lt02_demo/presentation/signin/signin_model.dart';
 
 /// サインインの画面ページ
 class SignupPage extends ConsumerWidget {
-  const SignupPage({Key? key}) : super(key: key);
+  SignupPage({Key? key}) : super(key: key);
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,66 +34,69 @@ class SignupPage extends ConsumerWidget {
                         marginTop: 5,
                         marginBottom: 5,
                       ),
-                      body: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const BootstrapHeading.h5(
-                            child: Text('LT会 Demoアプリのユーザー登録'),
-                          ),
-                          BootstrapFormGroup(
-                            children: [
-                              TextField(
-                                controller: signinState.nameController,
-                                decoration: BootstrapInputDecoration(
-                                  hintText: 'name',
-                                ),
-                              ),
-                            ],
-                          ),
-                          BootstrapFormGroup(
-                            children: [
-                              TextField(
-                                controller: signinState.emailController,
-                                decoration: BootstrapInputDecoration(
-                                  hintText: 'email',
-                                ),
-                              ),
-                            ],
-                          ),
-                          BootstrapFormGroup(
-                            children: [
-                              TextField(
-                                controller: signinState.passwordController,
-                                obscureText: signinState.passwordObscure,
-                                decoration: BootstrapInputDecoration(
-                                  hintText: 'password',
-                                  suffixIcon: InkWell(
-                                    onTap: () {
-                                      //Todo ViewModelのパスワード状態可視状態変更
-                                      signinState.togglePasswordObscure();
-                                    },
-                                    child: Icon(Icons.remove_red_eye),
+                      body: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const BootstrapHeading.h5(
+                              child: Text('LT会に登録'),
+                            ),
+                            BootstrapFormGroup(
+                              children: [
+                                TextFormField(
+                                  controller: signinState.nameController,
+                                  decoration: BootstrapInputDecoration(
+                                    hintText: 'name',
                                   ),
                                 ),
-                                onEditingComplete: () async {
+                              ],
+                            ),
+                            BootstrapFormGroup(
+                              children: [
+                                TextFormField(
+                                  controller: signinState.emailController,
+                                  decoration: BootstrapInputDecoration(
+                                    hintText: 'email',
+                                  ),
+                                ),
+                              ],
+                            ),
+                            BootstrapFormGroup(
+                              children: [
+                                TextField(
+                                  controller: signinState.passwordController,
+                                  obscureText: signinState.passwordObscure,
+                                  decoration: BootstrapInputDecoration(
+                                    hintText: 'password',
+                                    suffixIcon: InkWell(
+                                      onTap: () {
+                                        //Todo ViewModelのパスワード状態可視状態変更
+                                        signinState.togglePasswordObscure();
+                                      },
+                                      child: Icon(Icons.remove_red_eye),
+                                    ),
+                                  ),
+                                  onEditingComplete: () async {
+                                    //Todo viewModelのログイン処理を行う。
+                                    //await
+                                  },
+                                ),
+                              ],
+                            ),
+                            BootstrapParagraphs(
+                              child: BootstrapButton(
+                                type: BootstrapButtonType.primary,
+                                size: BootstrapButtonSize.large,
+                                child: Text('登録'),
+                                onPressed: () async {
                                   //Todo viewModelのログイン処理を行う。
                                   //await
                                 },
                               ),
-                            ],
-                          ),
-                          BootstrapParagraphs(
-                            child: BootstrapButton(
-                              type: BootstrapButtonType.success,
-                              size: BootstrapButtonSize.large,
-                              child: Text('登録'),
-                              onPressed: () async {
-                                //Todo viewModelのログイン処理を行う。
-                                //await
-                              },
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

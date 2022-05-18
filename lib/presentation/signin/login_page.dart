@@ -7,7 +7,9 @@ import 'package:lt02_demo/presentation/signin/signin_model.dart';
 
 /// ログインの画面ページ
 class LoginPage extends ConsumerWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,56 +34,59 @@ class LoginPage extends ConsumerWidget {
                           marginTop: 5,
                           marginBottom: 5,
                         ),
-                        body: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const BootstrapHeading.h5(
-                              child: Text('LT会 Demoアプリのログイン'),
-                            ),
-                            BootstrapFormGroup(
-                              children: [
-                                TextField(
-                                  controller: signinState.emailController,
-                                  decoration: BootstrapInputDecoration(
-                                    hintText: 'email',
-                                  ),
-                                ),
-                              ],
-                            ),
-                            BootstrapFormGroup(
-                              children: [
-                                TextField(
-                                  controller: signinState.passwordController,
-                                  obscureText: signinState.passwordObscure,
-                                  decoration: BootstrapInputDecoration(
-                                    hintText: 'password',
-                                    suffixIcon: InkWell(
-                                      onTap: () {
-                                        //Todo ViewModelのパスワード状態可視状態変更
-                                        signinState.togglePasswordObscure();
-                                      },
-                                      child: Icon(Icons.remove_red_eye),
+                        body: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const BootstrapHeading.h5(
+                                child: Text('LT会へログイン'),
+                              ),
+                              BootstrapFormGroup(
+                                children: [
+                                  TextFormField(
+                                    controller: signinState.emailController,
+                                    decoration: BootstrapInputDecoration(
+                                      hintText: 'email',
                                     ),
                                   ),
-                                  onEditingComplete: () async {
+                                ],
+                              ),
+                              BootstrapFormGroup(
+                                children: [
+                                  TextFormField(
+                                    controller: signinState.passwordController,
+                                    obscureText: signinState.passwordObscure,
+                                    decoration: BootstrapInputDecoration(
+                                      hintText: 'password',
+                                      suffixIcon: InkWell(
+                                        onTap: () {
+                                          //Todo ViewModelのパスワード状態可視状態変更
+                                          signinState.togglePasswordObscure();
+                                        },
+                                        child: Icon(Icons.remove_red_eye),
+                                      ),
+                                    ),
+                                    onEditingComplete: () async {
+                                      //Todo viewModelのログイン処理を行う。
+                                      //await
+                                    },
+                                  ),
+                                ],
+                              ),
+                              BootstrapParagraphs(
+                                child: BootstrapButton(
+                                  type: BootstrapButtonType.primary,
+                                  size: BootstrapButtonSize.large,
+                                  child: Text('ログイン'),
+                                  onPressed: () async {
                                     //Todo viewModelのログイン処理を行う。
                                     //await
                                   },
                                 ),
-                              ],
-                            ),
-                            BootstrapParagraphs(
-                              child: BootstrapButton(
-                                type: BootstrapButtonType.success,
-                                size: BootstrapButtonSize.large,
-                                child: Text('ログイン'),
-                                onPressed: () async {
-                                  //Todo viewModelのログイン処理を行う。
-                                  //await
-                                },
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
