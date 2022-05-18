@@ -64,7 +64,7 @@ final _router = GoRouter(
   ],
   // redirect
   //redirect: (state) {
-    //return '/signup';
+    //return state.subloc == '/signup' ? null : '/signup';
   //},
 
   //遷移ページがないなどのエラーが発生した時に、このページに行く
