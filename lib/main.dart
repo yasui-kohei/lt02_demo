@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lt02_demo/constants/signin_page_constants.dart';
 import 'package:lt02_demo/firebase_options.dart';
 import 'package:lt02_demo/presentation/signin/signin_page.dart';
+import 'package:lt02_demo/presentation/signin/signup_page.dart';
 import 'package:lt02_demo/presentation/top/top_page.dart';
 
 void main() async {
@@ -12,7 +15,7 @@ void main() async {
   );
   // ウェブの URL　から # を除く
   GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -31,22 +34,33 @@ class MyApp extends StatelessWidget {
 final _router = GoRouter(
   //Todo developにpush前に/topに変更すること。
   //initialLocation: '/',
-  initialLocation: '/signin',
+  initialLocation: '/signin/signup',
   routes: [
+    /// SigninPageのタブに表示される情報の切り替えを行うためのGoRouteの設定
+    ///
+    /// ex.) /signupの場合は、signup.dartのウィジェットが表示される。
+    GoRoute(
+        name: 'signin',
+        path: '/signin/:signinPageId',
+        pageBuilder: (context, state) {
+          final signinPageId = state.params['signinPageId'];
+          final currentTab = SigninPageTabs.data.firstWhere((tab) => tab.tabId == signinPageId);
+          final index = SigninPageTabs.data.indexWhere((t) => t.tabId == currentTab.tabId);
+          print(index);
+          return MaterialPage(
+            key: state.pageKey,
+            child: SigninPage(
+              tabIndex: index,
+            ),
+          );
+        }
+    ),
     GoRoute(
       name: 'top',
-      path: '/',
+      path: '/top',
       pageBuilder: (context, state) => MaterialPage(
         key: state.pageKey,
         child: const TopPage(),
-      ),
-    ),
-    GoRoute(
-      name: 'signin',
-      path: '/singin',
-      pageBuilder: (context, state) => MaterialPage(
-        key: state.pageKey,
-        child: const SigninPage(),
       ),
     ),
   ],
