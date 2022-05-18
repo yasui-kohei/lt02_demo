@@ -79,6 +79,6 @@ class _SigninPageState extends State<SigninPage>
   }
 
   void _onTap(BuildContext context, int index) {
-    context.go('/signin/${SigninPageTabs.data[index].tabId}');
+    context.go('/${SigninPageTabs.data[index].tabId}');
   }
 }
