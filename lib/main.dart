@@ -32,16 +32,14 @@ class MyApp extends StatelessWidget {
 }
 
 final _router = GoRouter(
-  //Todo developにpush前に/topに変更すること。
-  //initialLocation: '/',
-  initialLocation: '/signin/signup',
+  initialLocation: '/signup',
   routes: [
     /// SigninPageのタブに表示される情報の切り替えを行うためのGoRouteの設定
     ///
     /// ex.) /signupの場合は、signup.dartのウィジェットが表示される。
     GoRoute(
         name: 'signin',
-        path: '/signin/:signinPageId',
+        path: '/:signinPageId',
         pageBuilder: (context, state) {
           final signinPageId = state.params['signinPageId'];
           final currentTab = SigninPageTabs.data.firstWhere((tab) => tab.tabId == signinPageId);
@@ -56,14 +54,19 @@ final _router = GoRouter(
         }
     ),
     GoRoute(
-      name: 'top',
-      path: '/top',
+      name: 'Home',
+      path: '/home',
       pageBuilder: (context, state) => MaterialPage(
         key: state.pageKey,
         child: const TopPage(),
       ),
     ),
   ],
+  // redirect
+  //redirect: (state) {
+    //return '/signup';
+  //},
+
   //遷移ページがないなどのエラーが発生した時に、このページに行く
   errorPageBuilder: (context, state) => MaterialPage(
     key: state.pageKey,
