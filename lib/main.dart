@@ -55,7 +55,7 @@ final _router = GoRouter(
     ),
     GoRoute(
       name: 'Home',
-      path: '/home',
+      path: '/LT/home',
       pageBuilder: (context, state) => MaterialPage(
         key: state.pageKey,
         child: const TopPage(),
