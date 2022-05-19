@@ -43,6 +43,8 @@ dependencies:
   flutter_bootstrap_widgets: ^1.1.0
   flutter_riverpod: ^1.0.3
   uuid: ^3.0.6
+  # form_field_validate
+  form_field_validator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
