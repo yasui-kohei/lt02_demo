@@ -67,4 +67,12 @@ class UserRepository {
       email: firebaseUser.email!,
     );
   }
+
+  Future<void> loginWithEmail(String email, String password) async{
+    try {
+      _auth.signInWithEmailAndPassword(email: email, password: password);
+    } on Exception catch (e) {
+      rethrow;
+    }
+  }
 }

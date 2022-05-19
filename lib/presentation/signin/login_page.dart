@@ -85,8 +85,13 @@ class LoginPage extends ConsumerWidget {
                                   onPressed: () async {
                                     final validate = _formKey.currentState!.validate();
                                     if(validate) {
-                                      //Todo viewModelのログイン処理を行う。
-                                      //await
+                                      try {
+                                        await signinState.login();
+                                        context.goNamed('Home');
+                                      } on Exception catch (e, st) {
+                                        print(e);
+                                        print(st);
+                                      }
                                     } else {
 
                                     }
