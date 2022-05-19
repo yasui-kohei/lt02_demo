@@ -3,6 +3,7 @@ import 'package:flutter_bootstrap/flutter_bootstrap.dart';
 import 'package:flutter_bootstrap_widgets/bootstrap_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lt02_demo/exception/validator/multi_validators.dart';
 import 'package:lt02_demo/presentation/signin/signin_model.dart';
 
 /// ログインの画面ページ
@@ -46,6 +47,7 @@ class LoginPage extends ConsumerWidget {
                                 children: [
                                   TextFormField(
                                     controller: signinState.emailController,
+                                    validator: emailValidator,
                                     decoration: BootstrapInputDecoration(
                                       hintText: 'email',
                                     ),
@@ -56,6 +58,7 @@ class LoginPage extends ConsumerWidget {
                                 children: [
                                   TextFormField(
                                     controller: signinState.passwordController,
+                                    validator: passwordValidator,
                                     obscureText: signinState.passwordObscure,
                                     decoration: BootstrapInputDecoration(
                                       hintText: 'password',
@@ -80,8 +83,13 @@ class LoginPage extends ConsumerWidget {
                                   size: BootstrapButtonSize.large,
                                   child: Text('ログイン'),
                                   onPressed: () async {
-                                    //Todo viewModelのログイン処理を行う。
-                                    //await
+                                    final validate = _formKey.currentState!.validate();
+                                    if(validate) {
+                                      //Todo viewModelのログイン処理を行う。
+                                      //await
+                                    } else {
+
+                                    }
                                   },
                                 ),
                               )

@@ -3,6 +3,7 @@ import 'package:flutter_bootstrap/flutter_bootstrap.dart';
 import 'package:flutter_bootstrap_widgets/bootstrap_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lt02_demo/exception/validator/multi_validators.dart';
 import 'package:lt02_demo/presentation/signin/signin_model.dart';
 
 /// サインインの画面ページ
@@ -46,6 +47,12 @@ class SignupPage extends ConsumerWidget {
                               children: [
                                 TextFormField(
                                   controller: signinState.nameController,
+                                  validator: (value) {
+                                    if(value == null || value.isEmpty) {
+                                      return '値が空です。';
+                                    }
+                                    return null;
+                                  },
                                   decoration: BootstrapInputDecoration(
                                     hintText: 'name',
                                   ),
@@ -55,6 +62,7 @@ class SignupPage extends ConsumerWidget {
                             BootstrapFormGroup(
                               children: [
                                 TextFormField(
+                                  validator: emailValidator,
                                   controller: signinState.emailController,
                                   decoration: BootstrapInputDecoration(
                                     hintText: 'email',
@@ -64,22 +72,20 @@ class SignupPage extends ConsumerWidget {
                             ),
                             BootstrapFormGroup(
                               children: [
-                                TextField(
+                                TextFormField(
                                   controller: signinState.passwordController,
+                                  validator: passwordValidator,
                                   obscureText: signinState.passwordObscure,
                                   decoration: BootstrapInputDecoration(
                                     hintText: 'password',
                                     suffixIcon: InkWell(
                                       onTap: () {
-                                        //Todo ViewModelのパスワード状態可視状態変更
                                         signinState.togglePasswordObscure();
                                       },
                                       child: Icon(Icons.remove_red_eye),
                                     ),
                                   ),
                                   onEditingComplete: () async {
-                                    //Todo viewModelのログイン処理を行う。
-                                    //await
                                   },
                                 ),
                               ],
