@@ -1,6 +1,8 @@
 # lt02_demo
 
 This is a Web App for LT demonstration
+You can try the MBaaS application to click this URL.
+https://lt02-demo.web.app/
 
 ## Getting Started
 
