@@ -45,7 +45,10 @@ class TopPage extends ConsumerWidget {
     return Scaffold(
       body: Column(
         children: [
-          Center(child: Text('LT会へようこそ！！')),
+          Center(child: Text('LT会へようこそ！！',style: TextStyle(
+            fontSize: 30,
+          ),)),
+          SizedBox(height: 20,),
           Expanded(child: asyncPostsQuery.when(
               data: (QuerySnapshot query){
                 return ListView(

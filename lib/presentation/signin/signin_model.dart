@@ -51,4 +51,18 @@ class SigninModel extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  Future<void> login() async{
+    isLoading = true;
+    notifyListeners();
+
+    try {
+      await userRepository.loginWithEmail(emailController.text,passwordController.text);
+    } on Exception catch (e) {
+
+    }
+
+    isLoading = false;
+    notifyListeners();
+  }
 }
