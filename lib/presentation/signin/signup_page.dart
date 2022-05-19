@@ -90,8 +90,14 @@ class SignupPage extends ConsumerWidget {
                                 size: BootstrapButtonSize.large,
                                 child: Text('登録'),
                                 onPressed: () async {
-                                  //Todo viewModelのログイン処理を行う。
-                                  //await
+                                  try {
+                                    await signinState.signupWithEmail();
+                                    context.goNamed('home');
+                                  } on Exception catch (e) {
+                                    print(e);
+                                  } on Error catch (e) {
+                                    print(e);
+                                  }
                                 },
                               ),
                             )
